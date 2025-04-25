@@ -1,0 +1,4 @@
+questionary
+matplotlib
+rich
+python-dotenv
