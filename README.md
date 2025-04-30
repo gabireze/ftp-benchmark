@@ -1,18 +1,17 @@
+# 📈 FTP Benchmark
 
-# FTP Benchmark
-
-**FTP Benchmark** é um script em Python que realiza testes de velocidade de Upload e Download via FTP, gerando relatórios de performance automaticamente.
+**FTP Benchmark** é um script Python interativo para testar a performance de **upload e download** via FTP. Ele mede velocidades, verifica integridade dos arquivos e gera relatórios em vários formatos, além de um gráfico visual de desempenho.
 
 ---
 
-## Requisitos
+## ✅ Requisitos
 
-- Python 3.8+
+- Python **3.8+**
 - Bibliotecas:
-  - `questionary`
-  - `matplotlib`
-  - `rich`
-  - `python-dotenv`
+  - [`questionary`](https://github.com/tmbo/questionary)
+  - [`matplotlib`](https://matplotlib.org/)
+  - [`rich`](https://rich.readthedocs.io/)
+  - [`python-dotenv`](https://github.com/theskumar/python-dotenv)
 
 Instale todas as dependências com:
 
@@ -22,22 +21,22 @@ pip install -r requirements.txt
 
 ---
 
-## Configuração
+## ⚙️ Configuração
 
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+Crie um arquivo `.env` com as credenciais do seu servidor FTP:
 
 ```env
 FTP_ENDERECO=ftp.seu_servidor.com
 FTP_USUARIO=seu_usuario
 FTP_SENHA=sua_senha
-FTP_DIRETORIO=seu_diretorio
+FTP_DIRETORIO=diretorio_remoto
 ```
 
-Use o `.env.example` como referência.
+Use o `.env.example` como modelo.
 
 ---
 
-## Como usar
+## 🚀 Como usar
 
 Execute o script principal:
 
@@ -45,33 +44,38 @@ Execute o script principal:
 python ftp_benchmark.py
 ```
 
-Durante a execução, você poderá:
+Durante a execução você poderá:
+
 - Definir o nome do teste
-- Escolher os tamanhos dos arquivos para teste
+- Escolher os tamanhos dos arquivos (100MB, 512MB, 1GB)
 - Selecionar Upload, Download ou ambos
-- Visualizar barras de progresso para cada operação
-
-Relatórios gerados:
-- `relatorios/*.txt` (texto simples)
-- `relatorios/*.md` (Markdown)
-- `relatorios/*.csv` (dados tabulares)
-- `grafico_resultados.png` (gráfico de performance)
+- Escolher o tamanho do buffer (32KB, 64KB, 128KB, 256KB)
+- Visualizar a latência com `ping`
 
 ---
 
-## Features
+## 🧾 Relatórios Gerados
 
-- Teste de latência via Ping antes dos testes.
-- Upload e download com barra de progresso (Rich).
-- Cálculo de velocidades em Mbps e MB/s.
-- Verificação de integridade (comparando tamanhos dos arquivos).
-- Relatórios automáticos em `.txt`, `.md` e `.csv`.
-- Geração de gráfico dinâmico com `matplotlib`.
-- Limpeza automática de arquivos locais e remotos após o teste.
+- `relatorios/*.txt` — Relatório em texto simples
+- `relatorios/*.md` — Relatório em Markdown
+- `relatorios/*.csv` — Relatório tabular em CSV
+- `grafico_resultados.png` — Gráfico de performance (Upload/Download)
 
 ---
 
-## Estrutura do Projeto
+## 🛠️ Funcionalidades
+
+- Teste de latência via `ping`
+- Upload e download com barra de progresso interativa
+- Cálculo de velocidade em **Mbps** e **MB/s**
+- Verificação de integridade do arquivo (comparação de tamanho)
+- Relatórios automáticos em `.txt`, `.md`, `.csv`
+- Gráfico dinâmico com `matplotlib`
+- Limpeza automática de arquivos locais e remotos após os testes
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```bash
 .
@@ -80,13 +84,13 @@ Relatórios gerados:
 ├── ftp_benchmark.py
 ├── requirements.txt
 ├── relatorios/
-│   └── (arquivos de relatórios gerados)
+│   └── (relatórios gerados)
 ```
 
 ---
 
-## Avisos
+## ⚠️ Avisos
 
-- **Não** versionar o arquivo `.env` contendo credenciais reais.
-- Ajuste os tamanhos de teste conforme o seu ambiente (pode gerar arquivos grandes).
-- Testes de Upload e Download são feitos utilizando o modo binário (`TYPE I`) para evitar corrupção de dados.
+- **Não** versionar o `.env` com credenciais reais
+- Os arquivos de teste podem ser grandes — ajuste conforme seu ambiente
+- Os testes usam modo binário (`TYPE I`) para garantir integridade nos dados

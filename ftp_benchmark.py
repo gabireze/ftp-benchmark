@@ -246,20 +246,6 @@ def live_plot(tamanhos, uploads, downloads):
     plt.pause(0.1)
 
 
-# ============ CLI - Argumentos ============
-
-parser = argparse.ArgumentParser(description="Script de Teste FTP")
-parser.add_argument(
-    "--buffer",
-    type=int,
-    default=65536,
-    help="Tamanho do buffer em bytes (padrão: 65536)",
-)
-parser.add_argument(
-    "--tamanho", type=int, nargs="+", default=[1024], help="Tamanhos dos arquivos (MB)"
-)
-args = parser.parse_args()
-
 # ============ Credenciais e Configurações ============
 endereco_ftp = os.getenv("FTP_ENDERECO", "192.168.0.1")
 usuario = os.getenv("FTP_USUARIO", "admin")
@@ -277,15 +263,6 @@ inicio_teste = datetime.now()
 # Teste de Ping
 testar_ping(endereco_ftp)
 
-# Aviso para arquivos grandes
-if max(args.tamanho) > 1024:
-    confirm = questionary.confirm(
-        "⚠️ Tamanhos grandes detectados (>1GB). Continuar?"
-    ).ask()
-    if not confirm:
-        print("[yellow]🚫 Teste cancelado pelo usuário.[/yellow]")
-        exit(0)
-
 # Escolha de Ações
 acoes = questionary.checkbox(
     "🛠️ Escolha o(s) teste(s):",
@@ -294,6 +271,45 @@ acoes = questionary.checkbox(
         questionary.Choice("Download", checked=True),
     ],
 ).ask()
+
+# ============ CLI - Argumentos ============
+
+parser = argparse.ArgumentParser(description="Script de Teste FTP")
+args = parser.parse_args()
+
+# Interface amigável para seleção de tamanhos de arquivo
+tamanhos_escolhidos = questionary.checkbox(
+    "📦 Selecione os tamanhos de arquivo para testar:",
+    choices=[
+        questionary.Choice(title="📁 Pequeno (100 MB)", value="100", checked=True),
+        questionary.Choice(title="📁 Médio (512 MB)", value="512", checked=True),
+        questionary.Choice(title="📁 Grande (1 GB)", value="1024", checked=True),
+    ],
+).ask()
+
+args.tamanho = list(map(int, tamanhos_escolhidos or ["100", "512", "1024"]))
+
+# Interface amigável para seleção de buffer
+buffer_escolhido = questionary.select(
+    "📐 Escolha o tamanho do buffer para upload/download:",
+    choices=[
+        questionary.Choice("32 KB", value=32768),
+        questionary.Choice("64 KB (padrão)", value=65536, checked=True),
+        questionary.Choice("128 KB", value=131072),
+        questionary.Choice("256 KB", value=262144),
+    ],
+).ask()
+
+args.buffer = buffer_escolhido or 65536
+
+# Aviso para arquivos grandes
+if max(args.tamanho) > 1024:
+    confirm = questionary.confirm(
+        "⚠️ Tamanhos grandes detectados (>1GB). Continuar?"
+    ).ask()
+    if not confirm:
+        print("[yellow]🚫 Teste cancelado pelo usuário.[/yellow]")
+        exit(0)
 
 resultados = []
 upload_speeds = []
