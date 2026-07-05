@@ -94,3 +94,5 @@ Durante a execução você poderá:
 - **Não** versionar o `.env` com credenciais reais
 - Os arquivos de teste podem ser grandes — ajuste conforme seu ambiente
 - Os testes usam modo binário (`TYPE I`) para garantir integridade nos dados
+
+<!-- GitAds-Verify: K1EYRYQBCVXDP1D5V39E59VYVE1MNLG1 -->
