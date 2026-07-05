@@ -2,6 +2,9 @@
 
 **FTP Benchmark** é um script Python interativo para testar a performance de **upload e download** via FTP. Ele mede velocidades, verifica integridade dos arquivos e gera relatórios em vários formatos, além de um gráfico visual de desempenho.
 
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=gabireze/ftp-benchmark@github)](https://gitads.dev/v1/ad-track?source=gabireze/ftp-benchmark@github)
+
 ---
 
 ## ✅ Requisitos
